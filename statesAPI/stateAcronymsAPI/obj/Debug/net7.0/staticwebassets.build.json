@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "SQ1nUuQjIpxFUGXZjUqVHrzLJRkxoKKfXC/f4fDeWJE=",
+  "Source": "stateAcronymsAPI",
+  "BasePath": "_content/stateAcronymsAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
