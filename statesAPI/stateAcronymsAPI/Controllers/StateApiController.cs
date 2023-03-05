@@ -61,7 +61,7 @@ namespace stateAcronymsAPI.Controllers
 
 			state.StatePopulation = statePopulationToPatch.StatePopulation;
 
-			return Ok(stateID);
+			return Ok(state);
 		}
 
 
