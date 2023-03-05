@@ -1,9 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using stateAcronymsAPI.Models;
-using System.Linq;
-using stateAcronymsAPI;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace stateAcronymsAPI.Controllers
 {
@@ -32,6 +30,45 @@ namespace stateAcronymsAPI.Controllers
 			return Ok(stateReturned);
 		}
 
-	}
-}
+		[HttpPatch("{stateID}")]
+
+		public ActionResult UpdateStatePopulation(string stateID, JsonPatchDocument<stateUpdateDto> patchedPopulation)
+		{
+			var state = StatesDataStore.Current.State.FirstOrDefault(p => p.stateAcryonym == stateID);
+
+			if (state == null)
+			{
+
+				return NotFound();
+			}
+
+			var statePopulationToPatch = new stateUpdateDto()
+			{
+				StatePopulation = state.StatePopulation
+			};
+
+			patchedPopulation.ApplyTo(statePopulationToPatch, ModelState);
+
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
+			if (!TryValidateModel(ModelState))
+			{
+				return BadRequest(ModelState);
+			}
+
+			state.StatePopulation = statePopulationToPatch.StatePopulation;
+
+			return Ok(stateID);
+		}
+
+
+
+        }
+
+    }
+
+
 
